@@ -1,0 +1,11 @@
+# Travis CI
+language: php
+
+php:
+  - '4.0'
+  - '5.4'
+  - '5.5'
+  - '5.6'
+  - '7.0'
+  - hhvm
+  - nightly
