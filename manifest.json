@@ -1,0 +1,11 @@
+{
+     "name"                 : "Bunto",
+     "short_description"    : "A Static Site Generator",
+     "category"             : "development",
+     "sub_category"         : "web",
+     "version"              : "0.1",
+     "logo"                 : "1",
+     "author"               : "Bunto",
+     "author_page"          : "https://github.com/bunto",
+     "app_page"             : "https://isc-host.github.io/bunto.isc/"
+}
