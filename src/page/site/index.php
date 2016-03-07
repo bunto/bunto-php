@@ -11,7 +11,7 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
     <?php echo \Lobby::l("$su/settings", "Settings", "class='btn'");?>
     <?php echo \Lobby::l("$su/pages", "Pages", "class='btn'");?>
   </p>
-  <form clear method="POST" action="<?php echo \Lobby::u();?>">
+  <form clear method="POST" action="<?php echo $su;?>">
     <button style="font-size: 25px;" name="generate" class="btn orange">Generate Site NOW!</button>
   </form>
   <?php

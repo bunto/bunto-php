@@ -26,12 +26,6 @@ class bunto extends \Lobby\App {
         return false;
       }else{
         $p2 = isset($parts[3]) ? $parts[3] : "index";
-
-        \Lobby\UI\Panel::addTopItem("lobbyAppbunto", array(
-          "text" => "Bunto &nbsp; > &nbsp; {$name}",
-          "href" => "/app/bunto/site/$site_id",
-          "position" => "left"
-        ));
         
         if($p2 == "index" || $p2 == "settings" || $p2 == "pages" || $p2 == "edit"){
           $this->addStyle("site.css");

@@ -75,14 +75,15 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
     </label>
     <label>
       <div>Location</div>
-      <input type="text" name="slug" value="<?php echo $data['slug'];?>" title="Path of page. Example : 'myFolder/myFile' . The default extension is .html" />
+      <input type="text" name="slug" value="<?php echo $data['slug'];?>" title="Path of page. Example : 'myFolder/myFile'. No need to add .html at end" />
     </label>
     <label>
       <div>Content</div>
+      <div style="margin: 20px 0 0;"></div>
       <textarea name="content" style="height: 200px;width: 700px;"><?php echo $data['body'];?></textarea>
     </label>
-    <div clear style="text-align: right;">
-      <button name="submit"><?php echo $data['title'] == "" ? "Create Page" : "Update Page" ?></button>
+    <div clear>
+      <button name="submit" class="btn green"><?php echo $data['title'] == "" ? "Create Page" : "Update Page" ?></button>
     </div>
   </form>
   <style>

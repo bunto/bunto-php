@@ -6,9 +6,10 @@
 });
 ?>
 <ul id="slide-out" class="side-nav fixed">
-  <form method="POST" action="<?php echo \Lobby::u();?>" id="generate">
+  <form method="POST" action="<?php echo $su;?>" id="generate">
     <button name="generate" class="btn orange">Generate Site</button>
   </form>
+  <li><a href="<?php echo $su;?>">Home</a></li>
   <li><a href="<?php echo $su . "/settings";?>">Settings</a></li>
   <li><a class="waves-effect waves-teal" href="<?php echo $su . "/pages";?>">Pages</a></li>
 </ul>
