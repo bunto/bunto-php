@@ -1,3 +1,7 @@
+<?php
+$this->addScript("new-site.js");
+$this->addStyle("site-settings.css");
+?>
 <div class="contents">
   <h2>New Site</h2>
   <?php
@@ -27,51 +31,40 @@
     <label>
       <div>Site Name</div>
       <input type="text" name="site" />
-    </label><cl/>
+    </label>
     <label>
       <div>Output Location</div>
-      <input type="text" name="output" title="Where the generated site should be extracted" />
-    </label><cl/>
-    <label>
-      <div>Empty Output location</div>
-      <input type="checkbox" name="empty" title="Should the contents of output directory be removed before generating the site everytime" />
+      <div class="row">
+        <div class="col s9 input-field">
+          <input type="text" name="output" id="output_loc" title="Path to which the files of generated site should be saved" />
+        </div>
+        <div class="col s2 input-field">
+          <a id="choose_output_loc" class="btn orange">Choose Path</a>
+        </div>
+      </div>
     </label>
-    <div>
+    <label>
+      <input type="checkbox" name="empty" title="Should the contents of output directory be removed before generating the site everytime" />
+      <span>Empty Output location</span>
+    </label>
+    <div style="margin-top: 20px;">
       <div>Theme</div>
       <?php
       foreach($this->themes as $theme){
       ?>
         <label class='theme'>
-          <a target="_blank" href="<?php echo $this->u("/src/data/themes/{$theme}/example.html");?>">
-            <img src="<?php echo $this->u("/src/data/themes/{$theme}/thumbnail.png");?>" />
+          <a target="_blank" href="<?php echo APP_SRC . "/src/data/themes/{$theme}/example.html";?>">
+            <img src="<?php echo APP_SRC . "/src/data/themes/{$theme}/thumbnail.png";?>" />
           </a>
           <input type="radio" name="theme" value="<?php echo $theme;?>" />
+          <span></span>
         </label>
       <?php
       }
       ?>
     </div>
-    <div clear>
-      <button name="submit">Create Site</button>
-    </div>
+    <label>
+      <button name="submit" class="btn green">Create Site</button>
+    </label>
   </form>
-  <style>
-    .workspace#sige label img{
-      width: 126px;
-      height: 96px;
-    }
-    .workspace#sige label.theme{
-      width: 126px;
-      height: 96px;
-      position: relative;
-    }
-    .workspace#sige label.theme input{
-      position: absolute;
-      left: 4px;
-      right: 0px;
-      bottom: 6px;
-      margin: 0px;
-      background: black;
-    }
-  </style>
 </div>

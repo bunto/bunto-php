@@ -1,16 +1,18 @@
 <?php
 $this->setTitle("Site $name");
+echo $this->inc("/src/inc/partial/site.sidebar.php", array(
+  "su" => $su // Site URL
+));
 ?>
 <div class="contents">
-  <h2><?php echo $name;?></h2>
-  <p>About yout site.</p>
-  <p><strong>Note that a page called "index" should be created in the site.</strong></p>
+  <h3><?php echo $name;?></h3>
+  <p>Manage your static site <?php echo $name;?>.</p>
   <p clear>
-    <?php echo \Lobby::l("$su/settings", "Settings", "class='button'");?>
-    <?php echo \Lobby::l("$su/pages", "Pages", "class='button'");?>
+    <?php echo \Lobby::l("$su/settings", "Settings", "class='btn'");?>
+    <?php echo \Lobby::l("$su/pages", "Pages", "class='btn'");?>
   </p>
   <form clear method="POST" action="<?php echo \Lobby::u();?>">
-    <button style="font-size: 25px;" name="generate" class="button orange">Generate Site NOW!</button>
+    <button style="font-size: 25px;" name="generate" class="btn orange">Generate Site NOW!</button>
   </form>
   <?php
   if(isset($_POST['generate'])){

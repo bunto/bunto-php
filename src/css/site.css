@@ -1,0 +1,9 @@
+.side-nav{
+  top: 50px;
+  list-style: none;
+  padding: 0;
+}
+.side-nav #generate{
+  margin: 20px auto;
+  display: table;
+}

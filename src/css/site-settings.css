@@ -1,0 +1,19 @@
+.workspace label{
+  display: block;
+  margin-top: 20px;
+}
+.workspace label img{
+  width: 126px;
+  height: 96px;
+}
+.workspace label.theme{
+  width: 126px;
+  height: 96px;
+  position: relative;
+}
+.workspace label.theme input[type=radio] + span{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #fff;
+}

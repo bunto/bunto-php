@@ -14,23 +14,30 @@ class bunto extends \Lobby\App {
       "index", "/new"
     );
     $p = $p == "/" ? "index" : $p;
-    
     if(array_search($p, $pages) !== false){
       return "auto";
-    }else if(substr($p, 0, 6) == "/site/"){
+    }else if(substr($p, 0, 6) === "/site/"){
       $parts = explode("/", $p);
-      $site = urldecode($parts[2]);
-      $name = $site;
+      $name = urldecode($parts[2]);
+      $site_id = urlencode($name);
       $site = $this->getSite();
       
       if(count($site) == 0){
         return false;
       }else{
-        $p2 = isset($parts[3]) ? $parts[3] : "site";
+        $p2 = isset($parts[3]) ? $parts[3] : "index";
+
+        \Lobby\UI\Panel::addTopItem("lobbyAppbunto", array(
+          "text" => "Bunto &nbsp; > &nbsp; {$name}",
+          "href" => "/app/bunto/site/$site_id",
+          "position" => "left"
+        ));
         
-        if($p2 == "site" || $p2 == "settings" || $p2 == "pages" || $p2 == "edit"){
+        if($p2 == "index" || $p2 == "settings" || $p2 == "pages" || $p2 == "edit"){
+          $this->addStyle("site.css");
           $site = $this->getSite($name);
-          return $this->inc("/src/page/$p2.php", array(
+          
+          return $this->inc("/src/page/site/$p2.php", array(
             "name" => $name,
             "site" => $site,
             "su" => $this->u("/site/".urlencode($name)), // Short for site URL
@@ -45,7 +52,7 @@ class bunto extends \Lobby\App {
     }
   }
   
-  public function addSite($name, $tagline, $out, $theme, $empty = 0, $titleTag = 1){
+  public function addSite($name, $out, $theme, $tagline = "", $empty = 0, $titleTag = 1){
     $sites = $this->getSite();
     $sites[$name] = array(
       "out" => $out,

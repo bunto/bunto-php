@@ -1,8 +1,21 @@
+<?php
+$this->addScript("new-site.js");
+$this->addStyle("site-settings.css");
+$this->setTitle("$name - Settings");
+
+echo $this->inc("/src/inc/partial/site.sidebar.php", array(
+  "su" => $su // Site URL
+));
+?>
 <div class="contents">
-  <h2>sige</h2>
-  <p>Change the settings of the site <strong><?php echo $name;?></strong></p>
+  <h2>Settings</h2>
   <?php
-  if(isset($_POST['submit'])){
+  if(isset($_POST['delete_site']) && \H::csrf()){
+    \H::saveJSONData("sites", array(
+      $name => false
+    ));
+    $this->redirect("?status=site-deleted");
+  }else if(isset($_POST['submit'])){
     $output = $_POST['output'];
     $tagline = $_POST['tagline'];
     $theme = isset($_POST['theme']) ? $_POST['theme'] : "";
@@ -25,7 +38,7 @@
     }
   }
   ?>
-  <form action="<?php echo \Lobby::u();?>" method="POST" clear>
+  <form action="<?php echo \Lobby::u();?>" method="POST">
     <?php
     $site = $this->getSite($name);
     $empty = $site['empty'] == 1 ? "checked='checked'" : "";
@@ -37,18 +50,25 @@
         <input type="text" name="tagline" title="The tagline of site" value="<?php echo $site['tagline'];?>" />
       </label><cl/>
       <label>
-        <div>Output location</div>
-        <input type="text" name="output" title="Where the generated site should be extracted" value="<?php echo $site['out'];?>" />
+        <div>Output Location</div>
+        <div class="row">
+          <div class="col s9 input-field">
+            <input type="text" name="output" id="output_loc" title="Path to which the files of generated site should be saved" value="<?php echo $site['out'];?>" />
+          </div>
+          <div class="col s2 input-field">
+            <a id="choose_output_loc" class="btn orange">Choose Path</a>
+          </div>
+        </div>
       </label><cl/>
       <label>
-        <div>Empty Output location</div>
         <input type="checkbox" name="empty" title="Should the contents of output directory be removed before making the site" <?php echo $empty;?>/>
+        <span>Empty Output location</span>
       </label>
-      <label>
-        <div>Append Site Name to &lt;title&gt; tag</div>
-        <input type="checkbox" name="titleTag" title="Append the site name after page title ? Example : 'My Page - Delicious Blog'" <?php echo $titleTag;?>/>
+      <label title="Append the site name after page title ? Example : 'My Page - Delicious Blog'">
+        <input type="checkbox" name="titleTag" <?php echo $titleTag;?> />
+        <span>Append Site Name to &lt;title&gt; tag</span>
       </label>
-      <div>
+      <div style="margin-top: 20px;">
         <div>Theme</div>
         <?php
         foreach($this->themes as $theme){
@@ -59,6 +79,7 @@
               <img src="<?php echo APP_SRC . "/src/data/themes/{$theme}/thumbnail.png";?>" />
             </a>
             <input type="radio" name="theme" value="<?php echo $theme;?>" checked="<?php echo $checked;?>" />
+            <span></span>
           </label>
         <?php
         }
@@ -68,26 +89,11 @@
     }
     ?>
     <div clear>
-      <button name="submit">Update Settings</button>
+      <button name="submit" class="btn green">Update Settings</button>
     </div>
   </form>
-  <style>
-    .workspace#sige label img{
-      width: 126px;
-      height: 96px;
-    }
-    .workspace#sige label.theme{
-      width: 126px;
-      height: 96px;
-      position: relative;
-    }
-    .workspace#sige label.theme input{
-      position: absolute;
-      left: 4px;
-      right: 0px;
-      bottom: 6px;
-      margin: 0px;
-      background: black;
-    }
-  </style>
+  <form action="<?php echo \Lobby::u();?>" method="POST" clear>
+    <p><button name="delete_site" class="btn red">Delete Site From Bunto</button> - Folder won't be removed.</p>
+    <?php \H::csrf(1);?>
+  </form>
 </div>

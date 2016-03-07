@@ -1,11 +1,14 @@
 <?php
 $this->addScript("editor.js");
+echo $this->inc("/src/inc/partial/site.sidebar.php", array(
+  "su" => $su // Site URL
+));
 /**
  * $name is for the Site Name
  * $pname is for the Page Name
  */
 ?>
-<script src="<?php echo $this->u("/src/lib/tinymce/tinymce.min.js");?>"></script>
+<script src="<?php echo APP_SRC . "/src/lib/tinymce/tinymce.min.js";?>"></script>
 <div class="contents">
   <h2>Create Page</h2>
   <?php
@@ -57,22 +60,22 @@ $this->addScript("editor.js");
     if( $data['title'] == ""){
     ?>
       <p>Create a new page in <strong><?php echo $name;?></strong></p>
-      <label title="Should only contain alphanumeric + space characters">
+      <label>
         <div>Name</div>
-        <input type="text" name="name" value="<?php echo $data['name'];?>" />
+        <input type="text" name="name" value="<?php echo $data['name'];?>" title="Should only contain alphanumeric + space characters" />
       </label>
     <?php
     }else{
       echo "<input type='hidden' name='update' value='true' />";
     }
     ?>
-    <label title="The <title> of the page. Not applicable to Plain File type">
+    <label>
       <div>Title</div>
-      <input type="text" name="title" value="<?php echo $data['title'];?>" />
+      <input type="text" name="title" value="<?php echo $data['title'];?>" title="The <title> of the page. Not applicable to Plain File type" />
     </label>
-    <label title="Path of page. Example : 'myFolder/myFile' . The default extension is .html">
+    <label>
       <div>Location</div>
-      <input type="text" name="slug" value="<?php echo $data['slug'];?>" />
+      <input type="text" name="slug" value="<?php echo $data['slug'];?>" title="Path of page. Example : 'myFolder/myFile' . The default extension is .html" />
     </label>
     <label>
       <div>Content</div>
