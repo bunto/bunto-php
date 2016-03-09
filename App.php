@@ -73,8 +73,7 @@ class bunto extends \Lobby\App {
   
   /* Get pages of a site or a specific page of a site. The name of a page is alphanumeric */
   public function getPages($site, $type = "all"){
-    $data = getData("{$site}Pages");
-    $pages = $data != null ? json_decode($data, true) : array();
+    $pages = \H::getJSONData("{$site}Pages");
     
     if($pages){
       if($type == "all"){
@@ -91,16 +90,12 @@ class bunto extends \Lobby\App {
   }
   
   public function addPage($site, $name, $page){
-    $data = getData("{$site}Pages");
+    $data = \H::getJSONData("{$site}Pages");
+    var_dump($data);
     $name = strtolower($name);
-    if($data){
-      $pages = json_decode($data, true);
-      $pages = !is_array($pages) ? array() : $pages;
-    }else{
-      $pages = array();
-    }
     $pages[$name] = $page;
     saveData("{$site}Pages", json_encode($pages));
     return true;
   }
+  
 }

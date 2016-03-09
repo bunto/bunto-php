@@ -18,15 +18,16 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
     "slug" => "",
     "body" => ""
   );
-  $valid = false;
+  $page_edit = false;
   
   if(isset($_GET['id'])){
     $data = $this->getPages($name, $_GET['id']);
-    $valid = $data['title'] == "" ? false : true;
+    $page_edit = $data['slug'] === "" ? false : true;
+    $pid = $_GET['id'];
   }
   
   if(isset($_POST['submit'])){
-    $pname = $valid === true  ? $_GET['id'] : $_POST['name'];
+    $pname = $page_edit === true  ? $_GET['id'] : $_POST['name'];
     $title = $_POST['title'];
     $body = $_POST['content'];
     $slug = $_POST['slug'];
@@ -47,7 +48,7 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
           "slug" => $slug,
           "body" => $body
         ));
-        \Lobby::sss( "Page Updated", "The page was successfully " . ($valid ? "updated" : "created") );
+        \Lobby::sss( "Page "  . ($page_edit ? "Updated" : "Created"), "The page was successfully " . ($page_edit ? "updated" : "created") );
       }else{
         \Lobby::ser("Error", "Some error was occured while creating the page. Try again.");
       }
@@ -66,6 +67,7 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
       </label>
     <?php
     }else{
+      echo "<input type='text' disabled='disabled' value='{$pid}' title='Page ID. Once created, it can't be changed.'/>";
       echo "<input type='hidden' name='update' value='true' />";
     }
     ?>
@@ -84,6 +86,13 @@ echo $this->inc("/src/inc/partial/site.sidebar.php", array(
     </label>
     <div clear>
       <button name="submit" class="btn green"><?php echo $data['title'] == "" ? "Create Page" : "Update Page" ?></button>
+      <?php
+      if($page_edit){
+      ?>
+        <button name="deletePage" class="btn red"></button>
+      <?php
+      }
+      ?>
     </div>
   </form>
   <style>
