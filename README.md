@@ -1,2 +1,2 @@
 # bunto-php
-Bunto from scratch in PHP.
+> Bunto from scratch in PHP.
